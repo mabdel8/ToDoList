@@ -1,0 +1,6 @@
+{% include 'todo/navbar.html' %}
+
+<h1>{{ task.name }}</h1>
+<p>{{ task.description }}</p>
+<p>{{ task.time_created }}</p>
+{% if task.completed %}The task is completed{% else %} uncompleted {% endif %}

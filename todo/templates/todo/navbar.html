@@ -1,0 +1,23 @@
+<div class="nav-container">
+  <h1><a href="{% url 'home' %}">home</a></h1>
+  {% if request.user.is_authenticated %}
+  <div>
+  <h5> Hello, {{request.user}}</h5>
+  <h5><a href='{% url 'logout' %}'>Logout</a></h5>
+  </div>
+  {% else %}
+  <h5><a href="{% url 'login' %}">Login</a></h5>
+  {% endif %}
+</div>
+<hr />
+
+<style>
+  .nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  h5 {
+    margin: 0px 50px;
+  }
+</style>
