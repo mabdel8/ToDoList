@@ -1,6 +1,6 @@
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect
-from .models import Task
+from .models import Task, Topic
 from django.views.generic.list import ListView
 from django.http import request
 from django.views.generic.detail import DetailView
@@ -27,6 +27,11 @@ class ToDoListView(ListView):
       Q(name__icontains=query) | Q(description__icontains=query)
     )
     return object_list
+
+  def get_context_data(self,*args, **kwargs):
+        context = super(ToDoListView, self).get_context_data(*args,**kwargs)
+        context['topics'] = Topic.objects.all()
+        return context
 
 
 
@@ -105,3 +110,4 @@ def update_task(request, pk):
     task.save()
   
   return redirect('/')
+

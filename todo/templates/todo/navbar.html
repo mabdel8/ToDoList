@@ -1,23 +1,22 @@
-<div class="nav-container">
-  <h1><a href="{% url 'home' %}">home</a></h1>
+<div class="dashboard">
+  {% load static %}
+  <h1><a href="{% url 'home' %}"><img src="{% static '/images/home.png' %}" alt="home" id='home-img'>HOME</a></h1>
+  <div class='topic-links'>
+  {% for topic in topics %}
+  <p><a >{{topic}}</a></p>
+  {% endfor %}
+  </div>
   {% if request.user.is_authenticated %}
-  <div>
-  <h5> Hello, {{request.user}}</h5>
-  <h5><a href='{% url 'logout' %}'>Logout</a></h5>
+  <div class='login-dashboard'>
+  <h3> Hello, {{request.user}} <img src="{% static '/images/user.png' %}" alt="user" id='user-img'></h3>
+  <h4><a href='{% url 'logout' %}'>Logout</a></h4>
   </div>
   {% else %}
   <h5><a href="{% url 'login' %}">Login</a></h5>
   {% endif %}
 </div>
-<hr />
+
 
 <style>
-  .nav-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  h5 {
-    margin: 0px 50px;
-  }
+
 </style>

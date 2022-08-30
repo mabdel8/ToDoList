@@ -1,27 +1,280 @@
-{% include 'todo/navbar.html' %}
+<!DOCTYPE html>
+<html lang="en"
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% load static %}
+  <main>
 
-<h1>Tasks to do</h1>
+    <section class="glass">
+      
+      {% include 'todo/navbar.html' %}
+      
+    
+      <div class="main-feed">
+      <h1 id="main-title">Tasks</h1>
+      
+      <ul>
+      
+        <form method='get' action=''>
+          <input type='text' name='q' placeholder='Search tasks...' />
+        </form>
+        <h2 class="create-button-container"><a id="create-button" href='{% url 'create' %}'>create</a></h2>
+      
+      
+        <h2>Uncompleted Tasks</h2>
+        {% for task in task_list %}
+        
+        {% if not task.completed %}
+        <div class="task-container">
+          <div>{{ task.name }}</div> 
+          <div class="url-container">
+            <!-- <a href='{% url 'update' task.id %}'>Update</a> -->
+            <a href='{% url 'complete' task.id %}'>Complete</a>
+            <a href='{% url 'detail' task.id %}'><img src="{% static '/images/eye.png' %}" alt="eye" id='eye-img'></a>
+          <a href='{% url 'delete' task.id %}'><img src="{% static '/images/cross.png' %}" alt="cross" id='cross-img'></a>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <h2>Completed Tasks</h2>
+        {% for task in task_list %}
+        
+        {% if task.completed %}
+        <div class="task-container">
 
-<ul>
+          <div class="completed-tasks">{{ task.name }}</div>
 
-  <h2><a href='{% url 'create' %}'>create</a></h2>
-
-  <form method='get' action=''>
-    <input type='text' name='q' placeholder='Search tasks...' />
-  </form>
-
-  <h2>Uncompleted Tasks</h2>
-  {% for task in task_list %}
+          <div class="url-container">
+            <!-- <a href='{% url 'update' task.id %}'>Update</a> -->
+            <!-- <a href='{% url 'complete' task.id %}'>Uncomplete</a> -->
+            <a href='{% url 'detail' task.id %}'><img src="{% static '/images/eye.png' %}" alt="eye" id='eye-img'></a>
+          <a href='{% url 'delete' task.id %}'><img src="{% static '/images/cross.png' %}" alt="cross" id='cross-img'></a>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </ul>
+      </div>
+      
+      <!-- <div class='upcomming-feed'>
+      <h1>Upcomming</h1>
+      {% for task in task_list %}
+      {% if task.completed == False %}
+      <div class='upcomming-container'><p>{{task}}</p><p>Due: {{ task.due_date|timeuntil }}</p></div>
+      {% endif %}
+      {% endfor %}
+      
+      
+      </div> -->
+      
+      
+    </section>
   
-  {% if not task.completed %}
-  <li>{{ task.name }} -- {{  task.time_created }} -- {% if not task.completed %}uncompleted{% else %}completed{% endif %} <a href='{% url 'detail' task.id %}'>View Task</a> <a href='{% url 'delete' task.id %}'>Delete</a> <a href='{% url 'update' task.id %}'>Update</a> <a href='{% url 'complete' task.id %}'>Complete</a></li>
-  {% endif %}
-  {% endfor %}
-  <h2>Completed Tasks</h2>
-  {% for task in task_list %}
+  </main>
+  <div class="circle1"></div>
+  <div class="circle2"></div>
   
-  {% if task.completed %}
-  <li>{{ task.name }} -- {{  task.time_created }} -- {% if not task.completed %}uncompleted{% else %}completed{% endif %} <a href='{% url 'detail' task.id %}'>View Task</a> <a href='{% url 'delete' task.id %}'>Delete</a> <a href='{% url 'update' task.id %}'>Update</a> <a href='{% url 'complete' task.id %}'>Complete</a></li>
-  {% endif %}
-  {% endfor %}
-</ul>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+  
+    .upcomming-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    
+    main {
+      min-height: 100vh;
+      background: linear-gradient(to right top,#65dfc9,#6cdbeb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family:'poppins', sans-serif;
+    }
+  
+    .glass {
+      background: white;
+      min-height: 80vh;
+      width: 70%;
+      background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+      border-radius: 2rem;
+      backdrop-filter: blur(2rem);
+      z-index: 2;
+      display: flex;
+    }
+  
+    .circle1, .circle2 {
+      background: white;
+      background: linear-gradient(to right bottom, rgba(255,255,255, 0.8), rgba(255,255,255,0.3));
+      height: 13rem;
+      width: 13rem;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .circle1 {
+      top: 5%;
+      right: 10%
+    }
+  
+    .circle2 {
+      bottom: 5%;
+      left: 10%;
+    }
+  
+    .dashboard {
+      flex: 1;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content:space-evenly;
+      background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+      border-radius: 2rem;
+    }
+  
+    .main-feed{
+      flex: 2;
+    }
+  
+    .topic-links {
+      display: flex;
+      margin: 1rem 0rem;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .topic-links>p {
+      padding-top: 2rem;
+      color: #426696;
+      font-weight: 600;
+    }
+  
+    .login-dashboard {
+      display: flex;
+      flex-direction:column;
+      background: linear-gradient(to right top,#65dfc9,#6cdbeb);
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+    }
+  
+    .login-dashboard>h4>a {
+      text-decoration: none;
+      color: white;
+    }
+  
+    .dashboard>h1>a {
+      text-decoration: none;
+      color: #426696;
+    }
+
+    h1, h2 {
+      font-weight: 600;
+      color: #426696;
+      opacity: 0.8;
+    }
+
+    .upcomming-feed {
+      flex: 0.5;
+    }
+
+    #main-title {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+
+    .main-feed input {
+      background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+      border: none;
+      width: 50%;
+      padding: 0.5rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .main-feed {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      margin: 3rem;
+    }
+
+    #create-button {
+      text-decoration: none;
+      color: black;
+      background: linear-gradient(to right top,#65dfc9,#6cdbeb);
+      border-radius: 2rem;
+      padding: 0rem 1rem;
+    }
+
+    .task-container {
+      background: white;
+      border-radius: 1rem;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      box-shadow: 6px 6px 20px rgba(122,122,122,0.2);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .task-container a {
+      text-decoration: none;
+      background: linear-gradient(to right top,#65dfc9,#6cdbeb);
+      opacity: 80%;
+      border-radius: 2rem;
+      color: black;
+      font-size: 0.75rem;
+      padding: 0.25rem;
+      margin: 0.25rem;
+      backdrop-filter: blur(2rem);
+    }
+
+    .task-container p {
+      font-weight: 300;
+
+    }
+
+    .create-button-container {
+      margin-bottom: 1rem;
+    }
+
+    #home-img {
+      width: 20px;
+      height: 20px;
+    }
+
+    #cross-img, #eye-img {
+      width: 12px;
+      height: 12px;
+    }
+    #user-img {
+      width: 25px;
+      height: 25px;
+      background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+      padding: 5px;
+      border-radius: 50%;
+      margin-left: 15px;
+      position: relative;
+      top: 15%;
+    }
+
+    .completed-tasks {
+      text-decoration: line-through;
+    }
+  </style>
+  
+</body>
+</html>
+
