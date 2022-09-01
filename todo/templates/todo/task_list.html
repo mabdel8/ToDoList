@@ -19,7 +19,14 @@
       
     
       <div class="main-feed">
-      <h1 id="main-title">Tasks</h1>
+
+      <div class="main-feed-nav">
+        <h1 id="main-title">Tasks</h1>
+        <div class="feed-icons">
+          <img src="{% static '/images/bell.png' %}" alt="bell" class='home-img'>
+          <img src="{% static '/images/personTwo.png' %}" alt="profile" class='home-img'>
+        </div>
+      </div>
       
       <ul>
       
@@ -98,7 +105,7 @@
     
     main {
       min-height: 100vh;
-      background: linear-gradient(to right top,#65dfc9,#6cdbeb);
+      background: linear-gradient(to right top,#F5F7FA,#B8C6DB);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -107,8 +114,8 @@
   
     .glass {
       background: white;
-      min-height: 80vh;
-      width: 70%;
+      min-height: 90vh;
+      width: 80%;
       background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
       border-radius: 2rem;
       backdrop-filter: blur(2rem);
@@ -125,13 +132,13 @@
       border-radius: 50%;
     }
     .circle1 {
-      top: 5%;
-      right: 10%
+      top: 2%;
+      right: 5%
     }
   
     .circle2 {
-      bottom: 5%;
-      left: 10%;
+      bottom: 2%;
+      left: 5%;
     }
   
     .dashboard {
@@ -146,19 +153,21 @@
     }
   
     .main-feed{
-      flex: 2;
+      flex: 3;
     }
   
     .topic-links {
       display: flex;
       margin: 1rem 0rem;
       flex-direction: column;
-      align-items: center;
+      align-items:flex-start;
+      position: relative;
+      bottom: 10%;
     }
   
     .topic-links>p {
       padding-top: 2rem;
-      color: #426696;
+      color: black;
       font-weight: 600;
     }
   
@@ -175,14 +184,14 @@
       color: white;
     }
   
-    .dashboard>h1>a {
+    .topic-links>p>a {
       text-decoration: none;
-      color: #426696;
+      color: black;
     }
 
     h1, h2 {
       font-weight: 600;
-      color: #426696;
+      color: black;
       opacity: 0.8;
     }
 
@@ -202,6 +211,7 @@
       padding: 0.5rem;
       border-radius: 2rem;
       margin-bottom: 2rem;
+      box-shadow: 6px 6px 20px rgba(122,122,122,0.2);
     }
 
     .main-feed {
@@ -217,6 +227,7 @@
       background: linear-gradient(to right top,#65dfc9,#6cdbeb);
       border-radius: 2rem;
       padding: 0rem 1rem;
+      box-shadow: 6px 6px 20px rgba(122,122,122,0.2);
     }
 
     .task-container {
@@ -250,7 +261,7 @@
       margin-bottom: 1rem;
     }
 
-    #home-img {
+    .home-img {
       width: 20px;
       height: 20px;
     }
@@ -272,6 +283,24 @@
 
     .completed-tasks {
       text-decoration: line-through;
+    }
+
+    #app-title {
+      position: relative;
+      right: 15%;
+      bottom: 8%;
+      font-weight: 200;
+    }
+
+    .main-feed-nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items:flex-end;
+    }
+
+    .feed-icons>img {
+      margin: 10px;
     }
   </style>
   

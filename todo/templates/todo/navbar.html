@@ -1,10 +1,15 @@
 <div class="dashboard">
   {% load static %}
-  <h1><a href="{% url 'home' %}"><img src="{% static '/images/home.png' %}" alt="home" id='home-img'>HOME</a></h1>
+
+  <h1 id='app-title'>.Moes</h1>
+  
   <div class='topic-links'>
-  {% for topic in topics %}
+    <p><a href="{% url 'home' %}"><img src="{% static '/images/home.png' %}" alt="home" class='home-img'> HOME</a></p>
+    <p><a href="{% url 'home' %}"><img src="{% static '/images/calendar.png' %}" alt="calendar" class='home-img'> Calendar</a></p>
+    <p><a href="{% url 'home' %}"><img src="{% static '/images/clock.png' %}" alt="clock" class='home-img'> Upcoming</a></p>
+  {% comment %} {% for topic in topics %}
   <p><a >{{topic}}</a></p>
-  {% endfor %}
+  {% endfor %} {% endcomment %}
   </div>
   {% if request.user.is_authenticated %}
   <div class='login-dashboard'>
@@ -12,7 +17,9 @@
   <h4><a href='{% url 'logout' %}'>Logout</a></h4>
   </div>
   {% else %}
-  <h5><a href="{% url 'login' %}">Login</a></h5>
+  <div class='login-dashboard'>
+  <h4><a href="{% url 'login' %}">Login</a></h4>
+  </div>
   {% endif %}
 </div>
 
